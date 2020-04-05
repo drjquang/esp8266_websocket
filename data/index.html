@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP8266</title>
+</head>
+<body>
+	<p> LED Status: <span id="led-state">__</span> </p>
+	<button onclick="myFunction()"> TOGGLE </button>
+	<script>
+		function myFunction()
+		{
+		  console.log("button was clicked!");
+		  var xhr = new XMLHttpRequest();
+		  var url = "/ledstate";
+
+		  xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+			  document.getElementById("led-state").innerHTML = this.responseText;
+			}
+		  };
+
+		  xhr.open("GET", url, true);
+		  xhr.send();
+		};
+		document.addEventListener('DOMContentLoaded', myFunction, false);
+	</script>
+</body>
+</html>
